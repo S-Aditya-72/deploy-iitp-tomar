@@ -1,88 +1,65 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { Menu, X } from 'lucide-react';
-
-const navLinks = [
-  { name: 'Home', href: '/' },
-  { name: 'Profile', href: '/profile' },
-  { name: 'Research', href: '/research' },
-  { name: 'Thesis', href: '/thesis' },
-  { name: 'Projects', href: '/projects' },
-  { name: 'Honours', href: '/honours' },
-  { name: 'Memberships', href: '/memberships' },
-];
+import { useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Menu, X } from "lucide-react";
 
 export default function Navbar() {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
 
+  const navLinks = [
+    { name: "Home", href: "/" },
+    { name: "Profile", href: "/profile" },
+    { name: "Research", href: "/research" },
+    { name: "Thesis", href: "/thesis" },
+    { name: "Projects", href: "/projects" },
+    { name: "Honours", href: "/honours" },
+    { name: "Memberships", href: "/memberships" },
+  ];
+
   return (
-    <nav className="bg-slate-900 shadow-md">
+    <nav className="bg-slate-900 text-white shadow-lg sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
-          {/* Brand */}
-          <div className="flex-shrink-0">
-            <span className="text-white text-xl font-bold tracking-tight">Dr. N.K. Tomar</span>
+          <div className="flex-shrink-0 font-bold text-xl tracking-wider">
+            <Link href="/">Dr. N.K. Tomar</Link>
           </div>
-
-          {/* Desktop nav */}
-          <div className="hidden md:flex md:items-center space-x-2">
-            {navLinks.map((link) => {
-              const isActive = pathname === link.href;
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={
-                    isActive
-                      ? 'bg-blue-600 text-white px-3 py-2 rounded-lg font-medium transition-colors'
-                      : 'text-slate-300 hover:bg-blue-800 hover:text-white px-3 py-2 rounded-lg font-medium transition-colors'
-                  }
-                >
-                  {link.name}
-                </Link>
-              );
-            })}
+          <div className="hidden md:flex space-x-2">
+            {navLinks.map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                  pathname === link.href ? "bg-blue-600 text-white" : "text-slate-300 hover:bg-slate-700 hover:text-white"
+                }`}
+              >
+                {link.name}
+              </Link>
+            ))}
           </div>
-
-          {/* Mobile menu button */}
           <div className="md:hidden flex items-center">
-            <button
-              className="text-slate-200 hover:text-white focus:outline-none"
-              onClick={() => setMenuOpen((open) => !open)}
-              aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-            >
-              {menuOpen ? <X size={28} /> : <Menu size={28} />}
+            <button onClick={() => setIsOpen(!isOpen)} className="text-slate-300 hover:text-white">
+              {isOpen ? <X size={28} /> : <Menu size={28} />}
             </button>
           </div>
         </div>
       </div>
-
-      {/* Mobile Dropdown */}
-      {menuOpen && (
-        <div className="md:hidden bg-slate-800 shadow-lg z-20 absolute w-full left-0 top-16">
-          <div className="flex flex-col py-3 px-4 space-y-1">
-            {navLinks.map((link) => {
-              const isActive = pathname === link.href;
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={
-                    isActive
-                      ? 'bg-blue-600 text-white px-3 py-2 rounded-md font-medium transition-colors'
-                      : 'text-slate-200 hover:bg-blue-700 hover:text-white px-3 py-2 rounded-md font-medium transition-colors'
-                  }
-                  onClick={() => setMenuOpen(false)}
-                >
-                  {link.name}
-                </Link>
-              );
-            })}
-          </div>
+      {isOpen && (
+        <div className="md:hidden bg-slate-800 px-2 pt-2 pb-3 space-y-1 sm:px-3">
+          {navLinks.map((link) => (
+            <Link
+              key={link.name}
+              href={link.href}
+              onClick={() => setIsOpen(false)}
+              className={`block px-3 py-2 rounded-md text-base font-medium ${
+                pathname === link.href ? "bg-blue-600 text-white" : "text-slate-300 hover:bg-slate-700 hover:text-white"
+              }`}
+            >
+              {link.name}
+            </Link>
+          ))}
         </div>
       )}
     </nav>
