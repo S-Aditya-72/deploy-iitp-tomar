@@ -1,8 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Trophy, Mic, Award, Users, Star } from "lucide-react";
+import { Trophy, Mic, Award, Users, Star, Medal } from "lucide-react";
 import { facultyData } from "@/data/facultyData";
+import PageHeader from "@/components/PageHeader";
 
 export default function Honours() {
   const { honors } = facultyData;
@@ -13,11 +14,11 @@ export default function Honours() {
   };
 
   const itemVars = {
-    hidden: { opacity: 0, scale: 0.95 },
-    show: { opacity: 1, scale: 1, transition: { duration: 0.4 } },
+    hidden: { opacity: 0, y: 15 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
   };
 
-  // Smart function to assign icons, but keeping colors strictly professional
+  // Smart function to assign icons
   const getIcon = (text: string) => {
     const lowerText = text.toLowerCase();
     if (lowerText.includes("lecture") || lowerText.includes("talk")) return Mic;
@@ -28,46 +29,52 @@ export default function Honours() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto space-y-10">
-      <div className="border-b border-slate-200 pb-6 text-center md:text-left">
-        <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
-          Honours & Awards
-        </h1>
-        <p className="text-lg text-slate-600 mt-2">
-          Recognitions, invited lectures, and prestigious academic achievements.
-        </p>
-      </div>
+    <div className="w-full flex flex-col items-center">
+      {/* UW-Style Header (Prestigious Convocation / Auditorium Aesthetic) */}
+      <PageHeader 
+        title="Honours & Awards" 
+        subtitle="Recognitions, invited lectures, and prestigious academic achievements."
+        imageUrl="https://images.unsplash.com/photo-1523580494863-6f3031224c94?q=80&w=2070&auto=format&fit=crop" 
+      />
 
-      <motion.div 
-        variants={containerVars} 
-        initial="hidden" 
-        animate="show"
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-      >
-        {honors.map((honor, idx) => {
-          const Icon = getIcon(honor);
-          
-          return (
-            <motion.div 
-              key={idx} 
-              variants={itemVars} 
-              // Removed the colorful hover effects, kept it strictly elegant with slate borders
-              className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:border-slate-300 transition-colors flex items-start gap-4"
-            >
-              {/* Unified Academic Slate/Blue icon styling */}
-              <div className="p-2 rounded-lg flex-shrink-0 bg-slate-50 border border-slate-100 text-slate-600">
-                <Icon className="w-5 h-5" />
-              </div>
-              
-              <div className="flex-1">
-                <p className="text-slate-800 font-medium leading-relaxed text-sm">
-                  {honor}
-                </p>
-              </div>
-            </motion.div>
-          );
-        })}
-      </motion.div>
+      <div className="max-w-6xl w-full px-4 sm:px-6 lg:px-8 py-16">
+        
+        <div className="flex items-center gap-4 mb-12 border-b border-slate-200 pb-4">
+          <Medal className="w-8 h-8 text-iitp-blue" strokeWidth={1.5} />
+          <h2 className="font-serif text-3xl md:text-4xl text-slate-900 tracking-tight">Academic Recognitions</h2>
+        </div>
+
+        <motion.div 
+          variants={containerVars} 
+          initial="hidden" 
+          animate="show"
+          className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6"
+        >
+          {honors.map((honor, idx) => {
+            const Icon = getIcon(honor);
+            
+            return (
+              <motion.div 
+                key={idx} 
+                variants={itemVars} 
+                className="bg-white border-t-4 border-slate-200 border-x border-b border-x-slate-100 border-b-slate-100 p-6 hover:border-t-iitp-blue hover:bg-slate-50 transition-colors flex items-start gap-5 group"
+              >
+                {/* Official "Stamp/Seal" style icon */}
+                <div className="p-3 rounded-none bg-white border border-slate-200 text-slate-400 group-hover:text-iitp-blue group-hover:border-iitp-blue/30 transition-colors flex-shrink-0">
+                  <Icon className="w-6 h-6" strokeWidth={1.5} />
+                </div>
+                
+                {/* Content */}
+                <div className="flex-1 pt-1">
+                  <p className="text-slate-800 font-serif text-lg leading-relaxed group-hover:text-slate-900 transition-colors">
+                    {honor}
+                  </p>
+                </div>
+              </motion.div>
+            );
+          })}
+        </motion.div>
+      </div>
     </div>
   );
 }

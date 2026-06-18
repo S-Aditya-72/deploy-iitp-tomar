@@ -1,167 +1,148 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { GraduationCap, Briefcase, BookOpen, CheckCircle } from "lucide-react";
+import { GraduationCap, Briefcase, BookOpen, User, ChevronRight } from "lucide-react";
 import { facultyData } from "@/data/facultyData";
+import PageHeader from "@/components/PageHeader";
 
 export default function Profile() {
-  const { education, experience, teaching } = facultyData;
+  const { personal, education, experience, teaching } = facultyData;
 
-  // Animation variants
-  const containerVars = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: { staggerChildren: 0.15 },
-    },
-  };
-
-  const itemVars = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-  };
+  const containerVars = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.15 } } };
+  const itemVars = { hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transition: { duration: 0.5 } } };
 
   return (
-    <div className="max-w-6xl mx-auto space-y-16">
-      {/* Page Header */}
-      <div className="border-b border-slate-200 pb-6">
-        <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
-          Academic Profile
-        </h1>
-        <p className="text-lg text-slate-600 mt-2">
-          Education, Professional Experience, and Teaching Responsibilities.
-        </p>
+    <div className="w-full flex flex-col items-center">
+      
+      {/* UW-Style Header (Campus / Architecture Aesthetic) */}
+      <PageHeader 
+        title="Academic Profile" 
+        subtitle="Personal information, educational background, and professional timeline."
+        imageUrl="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2070&auto=format&fit=crop" 
+      />
+
+      <div className="max-w-6xl w-full px-4 sm:px-6 lg:px-8 py-16 space-y-20">
+        
+        {/* 1. PERSONAL INFORMATION DOSSIER */}
+        <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+          <div className="flex items-center gap-4 mb-8 border-b border-slate-200 pb-4">
+            <User className="w-8 h-8 text-iitp-blue" strokeWidth={1.5} />
+            <h2 className="font-serif text-3xl font-bold text-slate-900 tracking-tight">Personal Information</h2>
+          </div>
+          
+          <div className="bg-white border border-slate-200 border-t-[4px] border-t-iitp-blue p-8 md:p-10 shadow-sm">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-12">
+              
+              <div>
+                <p className="text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-1">Name</p>
+                <p className="font-serif text-xl text-slate-900">{personal.name}</p>
+              </div>
+              
+              <div>
+                <p className="text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-1">Institute</p>
+                <p className="text-slate-800 font-medium">{personal.institute}</p>
+              </div>
+
+              <div>
+                <p className="text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-1">Department</p>
+                <p className="text-slate-800 font-medium">{personal.department}</p>
+              </div>
+
+              <div>
+                <p className="text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-1">Research Interest</p>
+                <p className="text-iitp-blue font-bold">{personal.researchInterest}</p>
+              </div>
+
+            </div>
+          </div>
+        </motion.section>
+
+        <motion.div variants={containerVars} initial="hidden" animate="show" className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+          
+          {/* 2. EDUCATION TIMELINE */}
+          <motion.section variants={itemVars}>
+            <div className="flex items-center gap-4 mb-10 border-b border-slate-200 pb-4">
+              <GraduationCap className="w-8 h-8 text-iitp-blue" strokeWidth={1.5} />
+              <h2 className="font-serif text-3xl font-bold text-slate-900 tracking-tight">Education</h2>
+            </div>
+
+            <div className="ml-2 border-l border-slate-300 space-y-12">
+              {education.map((edu, idx) => (
+                <div key={idx} className="relative pl-8 group">
+                  {/* Elite Diamond Timeline Node */}
+                  <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 bg-slate-300 rotate-45 group-hover:bg-iitp-blue transition-colors"></div>
+                  
+                  <div>
+                    <h3 className="font-serif text-2xl text-slate-900 leading-none">{edu.degree}</h3>
+                    <p className="text-slate-700 font-medium mt-3 leading-relaxed">{edu.institution}</p>
+                    <span className="inline-block mt-2 text-iitp-blue text-sm font-bold tracking-widest uppercase">
+                      {edu.year}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.section>
+
+          {/* 3. ACADEMIC POSITIONS TIMELINE */}
+          <motion.section variants={itemVars}>
+            <div className="flex items-center gap-4 mb-10 border-b border-slate-200 pb-4">
+              <Briefcase className="w-8 h-8 text-iitp-blue" strokeWidth={1.5} />
+              <h2 className="font-serif text-3xl font-bold text-slate-900 tracking-tight">Academic Positions</h2>
+            </div>
+
+            <div className="ml-2 border-l border-slate-300 space-y-12">
+              {experience.map((exp, idx) => (
+                <div key={idx} className="relative pl-8 group">
+                  {/* Elite Diamond Timeline Node */}
+                  <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 bg-slate-300 rotate-45 group-hover:bg-iitp-blue transition-colors"></div>
+                  
+                  <div>
+                    <h3 className="font-serif text-2xl text-slate-900 leading-tight">{exp.role}</h3>
+                    <p className="text-slate-700 font-medium mt-3 leading-relaxed">{exp.institution}</p>
+                    <span className="inline-block mt-2 text-slate-500 text-sm font-bold tracking-widest uppercase">
+                      {exp.duration}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.section>
+        </motion.div>
+
+        {/* 4. TEACHING SECTION */}
+        <motion.section initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4, duration: 0.6 }}>
+          <div className="flex items-center gap-4 mb-10 border-b border-slate-200 pb-4">
+            <BookOpen className="w-8 h-8 text-iitp-blue" strokeWidth={1.5} />
+            <h2 className="font-serif text-3xl font-bold text-slate-900 tracking-tight">Teaching Responsibilities</h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {[ 
+              { title: "UG (B.Tech)", data: teaching.btech },
+              { title: "UG (M.Sc)", data: teaching.msc },
+              { title: "PG (M.Tech)", data: teaching.mtech },
+              { title: "PG (PhD)", data: teaching.phd }
+            ].map((section, idx) => (
+              <div key={idx} className="bg-white p-8 border border-slate-200 rounded-sm hover:border-slate-300 transition-colors">
+                <h3 className="font-serif text-2xl text-slate-900 border-b border-slate-100 pb-4 mb-5 flex items-center justify-between">
+                  {section.title}
+                  <span className="text-xs font-sans font-bold text-slate-400 uppercase tracking-widest">{section.data.length} Courses</span>
+                </h3>
+                <ul className="space-y-4">
+                  {section.data.map((subject, i) => (
+                    <li key={i} className="flex items-start gap-3 text-slate-700 text-[15px] group">
+                      <ChevronRight className="w-4 h-4 text-slate-300 mt-1 flex-shrink-0 group-hover:text-iitp-blue transition-colors" strokeWidth={2} />
+                      <span className="leading-relaxed">{subject}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </motion.section>
+
       </div>
-
-      <motion.div
-        variants={containerVars}
-        initial="hidden"
-        animate="show"
-        className="grid grid-cols-1 md:grid-cols-2 gap-12"
-      >
-        {/* Education Timeline */}
-        <motion.section variants={itemVars}>
-          <div className="flex items-center gap-3 mb-8">
-            <div className="p-3 bg-blue-100 text-blue-700 rounded-xl">
-              <GraduationCap className="w-6 h-6" />
-            </div>
-            <h2 className="text-2xl font-bold text-slate-900">Education</h2>
-          </div>
-
-          <div className="ml-4 border-l-2 border-blue-100 space-y-8">
-            {education.map((edu, idx) => (
-              <div key={idx} className="relative pl-8">
-                {/* Timeline Dot */}
-                <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-blue-600 border-4 border-white shadow-sm"></div>
-                
-                <div className="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
-                  <h3 className="text-xl font-bold text-slate-900">{edu.degree}</h3>
-                  <p className="text-slate-600 font-medium mt-1">{edu.institution}</p>
-                  <span className="inline-block mt-3 px-3 py-1 bg-slate-100 text-slate-700 text-sm font-semibold rounded-full">
-                    {edu.year}
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </motion.section>
-
-        {/* Experience Timeline */}
-        <motion.section variants={itemVars}>
-          <div className="flex items-center gap-3 mb-8">
-            <div className="p-3 bg-indigo-100 text-indigo-700 rounded-xl">
-              <Briefcase className="w-6 h-6" />
-            </div>
-            <h2 className="text-2xl font-bold text-slate-900">Academic Positions</h2>
-          </div>
-
-          <div className="ml-4 border-l-2 border-indigo-100 space-y-8">
-            {experience.map((exp, idx) => (
-              <div key={idx} className="relative pl-8">
-                {/* Timeline Dot */}
-                <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-indigo-600 border-4 border-white shadow-sm"></div>
-                
-                <div className="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
-                  <h3 className="text-xl font-bold text-slate-900">{exp.role}</h3>
-                  <p className="text-slate-600 font-medium mt-1">{exp.institution}</p>
-                  <span className="inline-block mt-3 px-3 py-1 bg-slate-100 text-slate-700 text-sm font-semibold rounded-full">
-                    {exp.duration}
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </motion.section>
-      </motion.div>
-
-      {/* Teaching Section */}
-      <motion.section 
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.4, duration: 0.6 }}
-        className="pt-8 border-t border-slate-200"
-      >
-        <div className="flex items-center gap-3 mb-8">
-          <div className="p-3 bg-emerald-100 text-emerald-700 rounded-xl">
-            <BookOpen className="w-6 h-6" />
-          </div>
-          <h2 className="text-2xl font-bold text-slate-900">Teaching Responsibilities</h2>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {/* B.Tech */}
-          <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-            <h3 className="text-lg font-bold text-slate-900 border-b border-slate-100 pb-3 mb-4">UG (B.Tech)</h3>
-            <ul className="space-y-3">
-              {teaching.btech.map((subject, idx) => (
-                <li key={idx} className="flex items-start gap-2 text-slate-600 text-sm">
-                  <CheckCircle className="w-4 h-4 text-emerald-500 mt-0.5 flex-shrink-0" />
-                  <span>{subject}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* M.Sc */}
-          <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-            <h3 className="text-lg font-bold text-slate-900 border-b border-slate-100 pb-3 mb-4">UG (M.Sc)</h3>
-            <ul className="space-y-3">
-              {teaching.msc.map((subject, idx) => (
-                <li key={idx} className="flex items-start gap-2 text-slate-600 text-sm">
-                  <CheckCircle className="w-4 h-4 text-emerald-500 mt-0.5 flex-shrink-0" />
-                  <span>{subject}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* M.Tech */}
-          <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-            <h3 className="text-lg font-bold text-slate-900 border-b border-slate-100 pb-3 mb-4">PG (M.Tech)</h3>
-            <ul className="space-y-3">
-              {teaching.mtech.map((subject, idx) => (
-                <li key={idx} className="flex items-start gap-2 text-slate-600 text-sm">
-                  <CheckCircle className="w-4 h-4 text-emerald-500 mt-0.5 flex-shrink-0" />
-                  <span>{subject}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* PhD */}
-          <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-            <h3 className="text-lg font-bold text-slate-900 border-b border-slate-100 pb-3 mb-4">PG (PhD)</h3>
-            <ul className="space-y-3">
-              {teaching.phd.map((subject, idx) => (
-                <li key={idx} className="flex items-start gap-2 text-slate-600 text-sm">
-                  <CheckCircle className="w-4 h-4 text-emerald-500 mt-0.5 flex-shrink-0" />
-                  <span>{subject}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </motion.section>
     </div>
   );
 }

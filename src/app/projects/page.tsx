@@ -1,8 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { FlaskConical, Building2, Calendar, UserCheck } from "lucide-react";
+import { Landmark, Calendar, UserCheck, CheckCircle } from "lucide-react";
 import { facultyData } from "@/data/facultyData";
+import PageHeader from "@/components/PageHeader";
 
 export default function Projects() {
   const { projects } = facultyData;
@@ -14,90 +15,97 @@ export default function Projects() {
 
   const itemVars = {
     hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+    show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-12">
-      {/* Page Header */}
-      <div className="border-b border-slate-200 pb-6 text-center md:text-left">
-        <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
-          Sponsored Research Projects
-        </h1>
-        <p className="text-lg text-slate-600 mt-2">
-          Major funded research initiatives and collaborations.
-        </p>
-      </div>
+    <div className="w-full flex flex-col items-center">
+      {/* UW-Style Header (High-Tech / Lab / Engineering Aesthetic) */}
+      <PageHeader 
+        title="Sponsored Research" 
+        subtitle="Major funded initiatives, technical modeling, and collaborative defense research."
+        imageUrl="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop" 
+      />
 
-      {/* Projects List */}
-      <motion.div 
-        variants={containerVars} 
-        initial="hidden" 
-        animate="show"
-        className="space-y-6"
-      >
-        {projects.map((project, idx) => (
-          <motion.div 
-            key={idx} 
-            variants={itemVars} 
-            className="bg-white border border-slate-200 rounded-2xl p-6 md:p-8 shadow-sm hover:shadow-lg transition-all duration-300 relative overflow-hidden group"
-          >
-            {/* Decorative Top Gradient Line */}
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-600 to-indigo-400 opacity-80 group-hover:opacity-100 transition-opacity"></div>
-            
-            <div className="flex flex-col md:flex-row gap-6 items-start">
-              
-              {/* Icon Container */}
-              <div className="hidden md:flex flex-shrink-0 p-4 bg-blue-50 text-blue-600 rounded-2xl">
-                <FlaskConical className="w-8 h-8" />
+      <div className="max-w-5xl w-full px-4 sm:px-6 lg:px-8 py-16">
+        
+        <div className="flex items-center gap-4 mb-12 border-b border-slate-200 pb-4">
+          <CheckCircle className="w-8 h-8 text-iitp-blue" strokeWidth={1.5} />
+          <h2 className="font-serif text-3xl md:text-4xl text-slate-900 tracking-tight">Funded Projects</h2>
+        </div>
+
+        {/* Projects List */}
+        <motion.div 
+          variants={containerVars} 
+          initial="hidden" 
+          animate="show"
+          className="space-y-8"
+        >
+          {projects.map((project, idx) => (
+            <motion.div 
+              key={idx} 
+              variants={itemVars} 
+              className="bg-white border border-slate-200 rounded-sm shadow-sm hover:shadow-md hover:border-iitp-blue transition-all duration-300 flex flex-col md:flex-row overflow-hidden group"
+            >
+              {/* Left Side: Project Title (The "Document" side) */}
+              <div className="p-8 md:w-2/3 border-b md:border-b-0 md:border-r border-slate-200 relative">
+                {/* Active Indicator Line */}
+                <div className="absolute top-0 left-0 w-1 h-full bg-slate-200 group-hover:bg-iitp-blue transition-colors"></div>
+                
+                <h3 className="font-serif text-2xl md:text-3xl text-slate-900 leading-snug mb-6 pl-4">
+                  {project.title}
+                </h3>
+                
+                {/* Status Badge */}
+                <div className="pl-4">
+                  <span className={`inline-flex items-center px-3 py-1 text-xs font-bold uppercase tracking-widest rounded-sm ${
+                    project.role.includes("Completed") 
+                      ? "bg-slate-100 text-slate-600 border border-slate-300"
+                      : "bg-iitp-light text-iitp-blue border border-iitp-blue/30"
+                  }`}>
+                    {project.role.includes("Completed") ? "Completed" : "Active / Ongoing"}
+                  </span>
+                </div>
               </div>
 
-              {/* Project Content */}
-              <div className="flex-1 space-y-4">
-                <h2 className="text-xl md:text-2xl font-bold text-slate-900 leading-snug">
-                  {project.title}
-                </h2>
+              {/* Right Side: Metadata Grid (The "Details" side) */}
+              <div className="p-8 md:w-1/3 bg-slate-50 flex flex-col justify-center space-y-6">
                 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {/* Funding Agency */}
-                  <div className="flex items-start gap-3">
-                    <Building2 className="w-5 h-5 text-slate-400 mt-0.5" />
-                    <div>
-                      <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">Funding Agency</p>
-                      <p className="text-slate-800 font-medium">{project.agency}</p>
-                    </div>
-                  </div>
+                {/* Funding Agency */}
+                <div>
+                  <p className="text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-1 flex items-center gap-2">
+                    <Landmark className="w-3.5 h-3.5" /> Funding Agency
+                  </p>
+                  <p className="text-slate-900 font-medium text-sm leading-relaxed">
+                    {project.agency}
+                  </p>
+                </div>
 
-                  {/* Duration */}
-                  <div className="flex items-start gap-3">
-                    <Calendar className="w-5 h-5 text-slate-400 mt-0.5" />
-                    <div>
-                      <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">Duration</p>
-                      <p className="text-slate-800 font-medium">{project.duration}</p>
-                    </div>
-                  </div>
+                {/* Duration */}
+                <div>
+                  <p className="text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-1 flex items-center gap-2">
+                    <Calendar className="w-3.5 h-3.5" /> Duration
+                  </p>
+                  <p className="text-slate-900 font-medium text-sm">
+                    {project.duration}
+                  </p>
+                </div>
 
-                  {/* Role */}
-                  <div className="flex items-start gap-3 sm:col-span-2 mt-2">
-                    <UserCheck className="w-5 h-5 text-slate-400 mt-0.5" />
-                    <div className="flex items-center gap-3">
-                      <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">Role</p>
-                      <span className={`px-3 py-1 text-sm font-bold rounded-full ${
-                        project.role.includes("Co-PI") 
-                          ? "bg-indigo-100 text-indigo-800" 
-                          : "bg-blue-100 text-blue-800"
-                      }`}>
-                        {project.role}
-                      </span>
-                    </div>
-                  </div>
+                {/* Role */}
+                <div>
+                  <p className="text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-1 flex items-center gap-2">
+                    <UserCheck className="w-3.5 h-3.5" /> Investigator Role
+                  </p>
+                  <p className="text-slate-900 font-medium text-sm">
+                    {project.role.replace(" (Completed)", "")}
+                  </p>
                 </div>
 
               </div>
-            </div>
-          </motion.div>
-        ))}
-      </motion.div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
     </div>
   );
 }
