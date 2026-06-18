@@ -1,1 +1,12 @@
 @import "tailwindcss";
+
+@theme {
+  /* Colors */
+  --color-iitp-blue: #075c93;
+  --color-iitp-dark: #054570;
+  --color-iitp-light: #e6f0f5;
+  
+  /* Fonts */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-playfair), ui-serif, Georgia, serif;
+}

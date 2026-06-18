@@ -20,46 +20,76 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="bg-slate-900 text-white shadow-lg sticky top-0 z-50">
+    <nav className="bg-white shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16 items-center">
-          <div className="flex-shrink-0 font-bold text-xl tracking-wider">
-            <Link href="/">Dr. N.K. Tomar</Link>
+        <div className="flex justify-between h-20">
+          {/* Logo / Name Area */}
+          <div className="flex items-center flex-shrink-0">
+            <Link href="/" className="flex flex-col justify-center">
+              {/* Prestigious Serif Font for the Name */}
+              <span className="font-serif font-bold text-2xl tracking-tight text-slate-900">
+                Dr. N.K. Tomar
+              </span>
+              <span className="text-xs font-bold text-iitp-blue tracking-widest uppercase mt-0.5">
+                IIT Patna
+              </span>
+            </Link>
           </div>
-          <div className="hidden md:flex space-x-2">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                  pathname === link.href ? "bg-blue-600 text-white" : "text-slate-300 hover:bg-slate-700 hover:text-white"
-                }`}
-              >
-                {link.name}
-              </Link>
-            ))}
+
+          {/* Desktop Menu - UW Style */}
+          <div className="hidden md:flex h-full">
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className={`relative flex items-center px-4 lg:px-5 h-full text-[13px] font-bold uppercase tracking-widest transition-all duration-200
+                    ${isActive ? "text-iitp-blue" : "text-slate-500"}
+                    hover:bg-iitp-blue hover:text-white
+                  `}
+                >
+                  {link.name}
+                  {isActive && (
+                    <div className="absolute bottom-0 left-0 w-full h-[6px] bg-iitp-blue" />
+                  )}
+                </Link>
+              );
+            })}
           </div>
+
+          {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center">
-            <button onClick={() => setIsOpen(!isOpen)} className="text-slate-300 hover:text-white">
-              {isOpen ? <X size={28} /> : <Menu size={28} />}
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="text-slate-600 hover:text-iitp-blue focus:outline-none transition-colors"
+            >
+              {isOpen ? <X size={32} /> : <Menu size={32} />}
             </button>
           </div>
         </div>
       </div>
+
+      {/* Mobile Menu Dropdown */}
       {isOpen && (
-        <div className="md:hidden bg-slate-800 px-2 pt-2 pb-3 space-y-1 sm:px-3">
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              onClick={() => setIsOpen(false)}
-              className={`block px-3 py-2 rounded-md text-base font-medium ${
-                pathname === link.href ? "bg-blue-600 text-white" : "text-slate-300 hover:bg-slate-700 hover:text-white"
-              }`}
-            >
-              {link.name}
-            </Link>
-          ))}
+        <div className="md:hidden bg-white border-t border-slate-100 shadow-xl absolute w-full">
+          <div className="flex flex-col">
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => setIsOpen(false)}
+                  className={`px-6 py-4 text-sm font-bold uppercase tracking-wider border-b border-slate-50
+                    ${isActive ? "bg-iitp-light text-iitp-blue border-l-4 border-l-iitp-blue" : "text-slate-600 hover:bg-iitp-blue hover:text-white"}
+                  `}
+                >
+                  {link.name}
+                </Link>
+              );
+            })}
+          </div>
         </div>
       )}
     </nav>

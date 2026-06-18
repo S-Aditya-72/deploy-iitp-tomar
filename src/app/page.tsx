@@ -1,101 +1,93 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, Phone, Building, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, ArrowRight } from "lucide-react";
 import { facultyData } from "@/data/facultyData";
+import Link from "next/link";
 
 export default function Home() {
   const { personal } = facultyData;
 
   return (
-    <div className="min-h-[calc(100vh-10rem)] w-full flex items-center justify-center px-4 py-8">
-      <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 md:gap-16 gap-10 items-center">
-        
-        {/* Left Column: Hero */}
-        <motion.section
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="flex flex-col items-center text-center md:items-start md:text-left gap-5"
-        >
-          <div className="space-y-2">
-            <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900">
-              {personal.name}
-            </h1>
-            <p className="text-xl font-medium text-blue-700">
+    <div className="w-full">
+      <div className="relative bg-white overflow-hidden min-h-[80vh] flex items-center rounded-sm border border-slate-100 shadow-sm">
+        <div className="max-w-7xl mx-auto w-full flex flex-col lg:flex-row items-stretch relative z-10">
+          
+          {/* Left Side: Massive Typography */}
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="w-full lg:w-[55%] py-16 px-6 lg:pl-16 lg:pr-12 flex flex-col justify-center"
+          >
+            <h2 className="text-iitp-blue font-bold tracking-widest uppercase text-sm mb-6 flex items-center gap-3">
+              <span className="w-10 h-[2px] bg-iitp-blue inline-block"></span>
               {personal.designation}
-            </p>
-          </div>
-
-          <div className="flex flex-col gap-2 text-slate-600 font-medium">
-            <span className="flex items-center justify-center md:justify-start gap-2">
-              <Building className="w-5 h-5 text-slate-400" />
-              {personal.department}
-            </span>
-            <span className="flex items-center justify-center md:justify-start gap-2">
-              <MapPin className="w-5 h-5 text-slate-400" />
-              {personal.institute}
-            </span>
-          </div>
-
-          <div className="mt-2">
-            <span className="inline-block px-4 py-2 rounded-full bg-blue-50 text-blue-800 text-sm font-semibold tracking-wide border border-blue-100 shadow-sm">
-              Research: {personal.researchInterest}
-            </span>
-          </div>
-        </motion.section>
-
-        {/* Right Column: Contact Card */}
-        <motion.aside 
-          initial={{ opacity: 0, x: 30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
-          className="w-full max-w-md mx-auto bg-white shadow-xl shadow-slate-200/50 rounded-2xl px-8 py-8 flex flex-col gap-6 border border-slate-100"
-          aria-label="Contact Information"
-        >
-          <h2 className="text-2xl font-bold text-slate-900 border-b border-slate-100 pb-4">
-            Contact Info
-          </h2>
-          <div className="flex flex-col gap-4 text-slate-600">
+            </h2>
             
-            {/* Emails */}
-            {personal.emails.map((email, idx) => (
-              <div className="flex items-center gap-3" key={`email-${idx}`}>
-                <div className="p-2 bg-blue-50 rounded-lg text-blue-600">
-                  <Mail className="w-5 h-5" />
-                </div>
-                <a href={`mailto:${email}`} className="hover:text-blue-700 hover:underline transition-colors">
-                  {email}
-                </a>
-              </div>
-            ))}
+            {/* The Elite Serif Font Applied Here */}
+            <h1 className="font-serif text-5xl sm:text-6xl lg:text-[5rem] text-slate-900 tracking-tight leading-[1.05] mb-8">
+              {personal.name.replace("Dr. ", "")}
+            </h1>
+            
+            <p className="text-lg sm:text-xl text-slate-600 mb-10 max-w-lg leading-relaxed border-l-[3px] border-iitp-blue pl-6 font-light">
+              Advancing research in <strong className="text-slate-900 font-semibold">{personal.researchInterest}</strong> at the {personal.institute}.
+            </p>
 
-            {/* Phones */}
-            {personal.phones.map((phone, idx) => (
-              <div className="flex items-center gap-3" key={`phone-${idx}`}>
-                <div className="p-2 bg-blue-50 rounded-lg text-blue-600">
-                  <Phone className="w-5 h-5" />
-                </div>
-                <a href={`tel:${phone}`} className="hover:text-blue-700 hover:underline transition-colors">
-                  {phone}
-                </a>
-              </div>
-            ))}
+            <div className="flex flex-wrap gap-4 mt-2">
+              <Link 
+                href="/research"
+                className="bg-iitp-blue text-white px-8 py-4 font-bold uppercase tracking-widest text-xs hover:bg-iitp-dark transition-colors flex items-center gap-3"
+              >
+                Explore Research <ArrowRight className="w-4 h-4" />
+              </Link>
+              <Link 
+                href="/profile"
+                className="bg-slate-50 border border-slate-200 text-slate-700 px-8 py-4 font-bold uppercase tracking-widest text-xs hover:bg-slate-100 transition-colors"
+              >
+                View Profile
+              </Link>
+            </div>
+          </motion.div>
 
-            {/* Address */}
-            <div className="flex items-start gap-3 mt-2">
-              <div className="p-2 bg-slate-50 rounded-lg text-slate-500">
-                <MapPin className="w-5 h-5" />
+          {/* Right Side: Image Placeholder */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
+            className="w-full lg:w-[45%] min-h-[500px] lg:min-h-full relative mt-10 lg:mt-0"
+          >
+            <div className="absolute inset-0 bg-slate-200">
+              <div className="absolute inset-0 bg-iitp-blue/5 mix-blend-multiply"></div>
+              
+              <div className="absolute inset-0 flex flex-col items-center justify-center text-slate-500 px-8 text-center bg-slate-100">
+                <span className="font-serif text-2xl mb-4 text-slate-400 border-b border-slate-300 pb-4">
+                  [ Portrait Image Placement ]
+                </span>
+                <span className="text-sm uppercase tracking-wider text-slate-400 font-semibold">
+                  1400x1600px High-Resolution Photo Recommended
+                </span>
               </div>
-              <span className="leading-relaxed text-sm">
-                {personal.department},<br />
-                {personal.institute},<br />
-                {personal.address}
-              </span>
             </div>
 
-          </div>
-        </motion.aside>
+            {/* Floating Contact Card */}
+            <div className="absolute -bottom-6 lg:bottom-16 left-6 lg:-left-16 bg-white p-8 shadow-2xl border-t-[6px] border-iitp-blue w-[85%] sm:w-80">
+              <h3 className="font-sans font-extrabold text-slate-900 uppercase tracking-widest text-xs mb-5">Connect</h3>
+              <div className="space-y-4">
+                <a href={`mailto:${personal.emails[0]}`} className="flex items-center gap-4 text-slate-600 hover:text-iitp-blue transition-colors text-sm font-medium">
+                  <Mail className="w-4 h-4 text-iitp-blue" /> {personal.emails[0]}
+                </a>
+                <a href={`tel:${personal.phones[0]}`} className="flex items-center gap-4 text-slate-600 hover:text-iitp-blue transition-colors text-sm font-medium">
+                  <Phone className="w-4 h-4 text-iitp-blue" /> {personal.phones[0]}
+                </a>
+                <div className="flex items-start gap-4 text-slate-600 text-sm font-medium pt-4 border-t border-slate-100">
+                  <MapPin className="w-4 h-4 flex-shrink-0 mt-0.5 text-iitp-blue" /> 
+                  <span className="leading-relaxed">{personal.department},<br/>IIT Patna</span>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
       </div>
     </div>
   );
