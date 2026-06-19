@@ -27,7 +27,7 @@ export default function ResearchContent({ data }: { data: any }) {
       <PageHeader 
         title="Research & Publications" 
         subtitle="A comprehensive archive of journal articles, conference proceedings, and academic events."
-        imageUrl="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=2070&auto=format&fit=crop" 
+        imageUrl="/images/research.png" 
       />
 
       <div className="max-w-5xl w-full px-4 sm:px-6 lg:px-8 py-16">
@@ -63,7 +63,7 @@ export default function ResearchContent({ data }: { data: any }) {
                   {pubs.map((pub: string, idx: number) => (
                     <motion.div key={idx} variants={itemVars} className="flex gap-6 py-6 border-b border-slate-100 hover:bg-slate-50 transition-colors px-4 group">
                       <span className="text-slate-400 font-serif text-xl group-hover:text-iitp-blue transition-colors">{(idx + 1).toString().padStart(2, '0')}.</span>
-                      <p className="text-slate-700 leading-loose text-[15px]">{pub}</p>
+                      <p className="text-slate-800 leading-relaxed text-base md:text-[17px]">{pub}</p>
                     </motion.div>
                   ))}
                 </motion.div>
@@ -80,7 +80,7 @@ export default function ResearchContent({ data }: { data: any }) {
                   {confs.map((conf: string, idx: number) => (
                     <motion.div key={idx} variants={itemVars} className="flex gap-6 py-6 border-b border-slate-100 hover:bg-slate-50 transition-colors px-4 group">
                       <span className="text-slate-400 font-serif text-xl group-hover:text-iitp-blue transition-colors">{(idx + 1).toString().padStart(2, '0')}.</span>
-                      <p className="text-slate-700 leading-loose text-[15px]">{conf}</p>
+                      <p className="text-slate-800 leading-relaxed text-base md:text-[17px]">{conf}</p>
                     </motion.div>
                   ))}
                 </motion.div>
@@ -97,7 +97,7 @@ export default function ResearchContent({ data }: { data: any }) {
                   {workshops.map((workshop: string, idx: number) => (
                     <motion.div key={idx} variants={itemVars} className="flex gap-6 py-6 border-b border-slate-100 hover:bg-slate-50 transition-colors px-4 group">
                       <span className="text-slate-400 font-serif text-xl group-hover:text-iitp-blue transition-colors">{(idx + 1).toString().padStart(2, '0')}.</span>
-                      <p className="text-slate-700 leading-loose text-[15px]">{workshop}</p>
+                      <p className="text-slate-800 leading-relaxed text-base md:text-[17px]">{workshop}</p>
                     </motion.div>
                   ))}
                 </motion.div>

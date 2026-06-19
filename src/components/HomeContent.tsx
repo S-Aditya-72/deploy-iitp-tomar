@@ -48,7 +48,7 @@ export default function HomeContent({ personal }: HomeContentProps) {
           </div>
           
           <h1 className="font-serif text-5xl sm:text-6xl lg:text-[5.5rem] text-slate-900 tracking-tight leading-[1.05] mb-6">
-            {personal.name.replace("Dr. ", "")}
+            {personal.name}
           </h1>
           
           <p className="text-lg sm:text-xl text-slate-600 mb-10 max-w-xl leading-relaxed font-light">
@@ -61,12 +61,13 @@ export default function HomeContent({ personal }: HomeContentProps) {
             </Link>
             
             {/* Google Scholar Button */}
-            <a href={scholarLink} target="_blank" rel="noopener noreferrer" className="bg-white border border-slate-200 text-slate-700 px-8 py-4 font-bold uppercase tracking-widest text-xs hover:border-iitp-blue hover:text-iitp-blue transition-colors shadow-sm flex items-center gap-3">
+            <a href={scholarLink} target="_blank" rel="noopener noreferrer" className="bg-white border border-slate-300 text-slate-700 px-8 py-4 font-bold uppercase tracking-widest text-xs hover:border-iitp-blue hover:text-iitp-blue transition-colors shadow-sm flex items-center gap-3">
               <GraduationCap className="w-4 h-4" /> Google Scholar
             </a>
           </div>
         </motion.div>
 
+        {/* Right Column: The Professor's Portrait */}
         {/* Right Column: The Professor's Portrait */}
         <motion.div 
           initial={{ opacity: 0, scale: 0.95 }}
@@ -75,16 +76,12 @@ export default function HomeContent({ personal }: HomeContentProps) {
           className="w-full lg:w-[40%] mt-16 lg:mt-0 flex justify-center lg:justify-end"
         >
           <div className="relative w-full max-w-sm">
-            {/* Structural Accent Box behind the image */}
-            <div className="absolute -inset-4 border-2 border-iitp-blue/20 translate-x-4 translate-y-4 rounded-sm"></div>
-            
-            {/* Portrait Image Container */}
-            <div className="relative bg-white p-2 shadow-2xl rounded-sm z-10">
-              {}
+            {/* Portrait Image Container - Removed the blue offset box */}
+            <div className="relative bg-white p-2 shadow-xl border border-slate-100 rounded-sm z-10">
               <img 
-                src="/images/dr_tomar.jpeg" 
+                src="/images/dr_tomar.jpeg" /* Make sure this points to his image */
                 alt={personal.name}
-                className="w-full h-[450px] object-cover rounded-sm grayscale-[20%] hover:grayscale-0 transition-all duration-500"
+                className="w-full h-[450px] object-cover rounded-sm"
               />
               <div className="p-4 text-center border-t border-slate-100 mt-2">
                 <p className="font-serif font-bold text-slate-900 text-lg">{personal.name}</p>

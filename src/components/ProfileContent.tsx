@@ -14,7 +14,7 @@ export default function ProfileContent({ data }: { data: any }) {
       <PageHeader 
         title="Academic Profile" 
         subtitle="Personal information, educational background, and professional timeline."
-        imageUrl="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2070&auto=format&fit=crop" 
+        imageUrl="/images/profile.jpeg" 
       />
 
       <div className="max-w-6xl w-full px-4 sm:px-6 lg:px-8 py-16 space-y-20">
@@ -112,9 +112,9 @@ export default function ProfileContent({ data }: { data: any }) {
                   </h3>
                   <ul className="space-y-4">
                     {section.items.map((subject: string, i: number) => (
-                      <li key={i} className="flex items-start gap-3 text-slate-700 text-[15px] group">
-                        <ChevronRight className="w-4 h-4 text-slate-300 mt-1 flex-shrink-0 group-hover:text-iitp-blue transition-colors" strokeWidth={2} />
-                        <span className="leading-relaxed">{subject}</span>
+                      <li key={i} className="flex items-start gap-3 text-slate-800 text-base md:text-[17px] group">
+                        <ChevronRight className="w-5 h-5 text-slate-300 mt-0.5 flex-shrink-0 group-hover:text-iitp-blue transition-colors" strokeWidth={2} />
+                        <span className="leading-relaxed font-medium">{subject}</span>
                       </li>
                     ))}
                   </ul>

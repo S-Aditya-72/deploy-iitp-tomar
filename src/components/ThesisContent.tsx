@@ -17,7 +17,7 @@ export default function ThesisContent({ data }: { data: any }) {
       <PageHeader 
         title="Theses Supervised" 
         subtitle="Research projects and dissertations supervised at the Ph.D., M.Tech, and M.Sc. levels."
-        imageUrl="https://images.unsplash.com/photo-1532012197267-da84d127e765?q=80&w=2070&auto=format&fit=crop" 
+        imageUrl="/images/thesis.jpeg" 
       />
 
       <div className="max-w-7xl w-full px-4 sm:px-6 lg:px-8 py-16 space-y-20">

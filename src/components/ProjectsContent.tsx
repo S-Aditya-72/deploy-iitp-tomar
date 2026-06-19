@@ -15,7 +15,7 @@ export default function ProjectsContent({ data }: { data: any }) {
       <PageHeader 
         title="Sponsored Research" 
         subtitle="Major funded initiatives, technical modeling, and collaborative defense research."
-        imageUrl="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop" 
+        imageUrl="/images/projects.jpeg" 
       />
 
       <div className="max-w-5xl w-full px-4 sm:px-6 lg:px-8 py-16">
@@ -30,14 +30,17 @@ export default function ProjectsContent({ data }: { data: any }) {
               <div className="p-8 md:w-2/3 border-b md:border-b-0 md:border-r border-slate-200 relative">
                 <div className="absolute top-0 left-0 w-1 h-full bg-slate-200 group-hover:bg-iitp-blue transition-colors"></div>
                 <h3 className="font-serif text-2xl md:text-3xl text-slate-900 leading-snug mb-6 pl-4">{project.title}</h3>
-                <div className="pl-4">
-                  <span className={`inline-flex items-center px-3 py-1 text-xs font-bold uppercase tracking-widest rounded-sm ${project.role?.includes("Completed") ? "bg-slate-100 text-slate-600 border border-slate-300" : "bg-iitp-light text-iitp-blue border border-iitp-blue/30"}`}>
-                    {project.role?.includes("Completed") ? "Completed" : "Active / Ongoing"}
-                  </span>
-                </div>
+                {/* Only show a badge if the project is Completed */}
+                {project.role?.includes("Completed") && (
+                  <div className="pl-4">
+                    <span className="inline-flex items-center px-3 py-1 text-xs font-bold uppercase tracking-widest rounded-sm bg-slate-100 text-slate-600 border border-slate-300">
+                      Completed
+                    </span>
+                  </div>
+                )}
               </div>
 
-              <div className="p-8 md:w-1/3 bg-slate-50 flex flex-col justify-center space-y-6">
+              <div className="p-8 md:w-1/3 bg-slate-50 flex flex-col justify-start space-y-6">
                 <div>
                   <p className="text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-1 flex items-center gap-2"><Landmark className="w-3.5 h-3.5" /> Funding Agency</p>
                   <p className="text-slate-900 font-medium text-sm leading-relaxed">{project.agency}</p>
