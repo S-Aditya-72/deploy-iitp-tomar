@@ -55,13 +55,13 @@ export default function HomeContent({ personal }: HomeContentProps) {
             Advancing research in <strong className="text-slate-900 font-semibold">{personal.researchInterest}</strong> at the <span className="text-slate-800 font-medium">{personal.institute}</span>.
           </p>
 
-          <div className="flex flex-wrap items-center gap-4">
-            <Link href="/research" className="bg-iitp-blue text-white px-8 py-4 font-bold uppercase tracking-widest text-xs hover:bg-iitp-dark transition-colors shadow-md hover:shadow-lg flex items-center gap-3">
+          {/* Action Buttons */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full max-w-sm sm:max-w-none">
+            <Link href="/research" className="w-full sm:w-auto justify-center bg-iitp-blue text-white px-8 py-4 font-bold uppercase tracking-widest text-xs hover:bg-iitp-dark transition-colors shadow-md hover:shadow-lg flex items-center gap-3">
               Explore Research <ArrowRight className="w-4 h-4" />
             </Link>
             
-            {/* Google Scholar Button */}
-            <a href={scholarLink} target="_blank" rel="noopener noreferrer" className="bg-white border border-slate-300 text-slate-700 px-8 py-4 font-bold uppercase tracking-widest text-xs hover:border-iitp-blue hover:text-iitp-blue transition-colors shadow-sm flex items-center gap-3">
+            <a href={scholarLink} target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto justify-center bg-white border border-slate-200 text-slate-700 px-8 py-4 font-bold uppercase tracking-widest text-xs hover:border-iitp-blue hover:text-iitp-blue transition-colors shadow-sm flex items-center gap-3">
               <GraduationCap className="w-4 h-4" /> Google Scholar
             </a>
           </div>
