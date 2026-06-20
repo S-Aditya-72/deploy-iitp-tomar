@@ -10,7 +10,7 @@ export default function ThesisContent({ data }: { data: any }) {
   const msc = data.mscStudents || [];
 
   const containerVars = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.1 } } };
-  const itemVars = { hidden: { opacity: 0, y: 15 }, show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } } };
+  const itemVars = { hidden: { opacity: 0, y: 15 }, show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" as const } } };
 
   return (
     <div className="w-full flex flex-col items-center">

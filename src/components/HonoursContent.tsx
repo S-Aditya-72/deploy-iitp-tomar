@@ -8,7 +8,7 @@ export default function HonoursContent({ data }: { data: any }) {
   const honors = data.honors || [];
 
   const containerVars = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.1 } } };
-  const itemVars = { hidden: { opacity: 0, y: 15 }, show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } } };
+  const itemVars = { hidden: { opacity: 0, y: 15 }, show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" as const } } };
 
   const getIcon = (text: string) => {
     const lowerText = text.toLowerCase();
